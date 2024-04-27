@@ -1,0 +1,29 @@
+{% extends 'layouts.html' %}
+
+{% block body %}
+<h1>This template lists all recipes.</h1>
+{% for recipe in recipes %}
+
+{% set title = recipe['title'] %}
+{% set description = recipe['description'] %}
+{% set ingredients = recipe['ingredients'] %}
+{% set preparation_time = recipe['preparation_time'] %}
+{% set cooking_time = recipe['cooking_time'] %}
+{% set servings = recipe['servings'] %}
+
+{% set total_time = preparation_time + cooking_time %}
+
+<h2>{{ title }}</h2>
+<section class="card">
+    <div class="card-description">{{ description }}</div>
+    <div class="card-ingredients">{{ingredients }}</div>
+    <div class="card-preparation-time">{{ preparation_time }}</div>
+    <div class="card-cooking-time">{{ cooking_time }}</div>
+    <div class="card-total-time">{{ total_time }}</div>
+    <div class="card-servings">{{ servings }}</div>
+</section>
+
+{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'layouts.html' %}
+
+{% block body %}
+
+{{ set total_time = recipe.preparation_time + recipe.cooking_time }}
+
+<h2>{{ recipe.title }}</h2>
+<section class="card">
+    <div class="card-description">{{ recipe.description }}</div>
+    <div class="card-ingredients">{{recipe.ingredients }}</div>
+    <div class="card-preparation-time">{{ recipe.preparation_time }}</div>
+    <div class="card-cooking-time">{{ recipe.cooking_time }}</div>
+    <div class="card-total-time">{{ total_time }}</div>
+    <div class="card-servings">{{ recipe.servings }}</div>
+</section>
+
+{% endblock %}
