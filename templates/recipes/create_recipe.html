@@ -1,26 +1,50 @@
 {% extends 'layouts.html' %}
 
-{% block body %}
-<h2>Add Recipe</h2>
-<form action="/recipes/add" method="post">
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" required>
+{% block main %}
+<h2 class="title">Add Recipe</h2>
+<form class="box" action="/recipes/add" method="post">
+    <div class="field">
+        <label class="label" for="title">Title:</label>
+        <div class="control">
+            <input class="input" type="text" name="title" id="title" required>
+        </div>
+    </div>
 
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" required>
+    <div class="field">
+        <label class="label" for="description">Description:</label>
+        <div class="control">
+            <input class="input" type="text" name="description" id="description" required>
+        </div>
+    </div>
 
-    <label for="ingredients">Ingredients:</label>
-    <input type="text" name="ingredients" id="ingredients" required>
+    <div class="field">
+        <label class="label" for="ingredients">Ingredients:</label>
+        <div class="control">
+            <input class="input" type="text" name="ingredients" id="ingredients" required>
+        </div>
+    </div>
 
-    <label for="preparation_time">Preparation Time (minutes):</label>
-    <input type="number" name="preparation_time" id="preparation_time" required>
+    <div class="field">
+        <label class="label" for="preparation_time">Preparation Time (minutes):</label>
+        <div class="control">
+            <input class="input" type="number" name="preparation_time" id="preparation_time" required>
+        </div>
+    </div>
 
-    <label for="cooking_time">Cooking Time (minutes):</label>
-    <input type="number" name="cooking_time" id="cooking_time" required>
+    <div class="field">
+        <label class="label" for="cooking_time">Cooking Time (minutes):</label>
+        <div class="control">
+            <input class="input" type="number" name="cooking_time" id="cooking_time" required>
+        </div>
+    </div>
 
-    <label for="servings">Servings:</label>
-    <input type="number" name="servings" id="servings" required>
+    <div class="field">
+        <label class="label" for="servings">Servings:</label>
+        <div class="control">
+            <input class="input" type="number" name="servings" id="servings" required>
+        </div>
+    </div>
 
-    <button type="submit">Add Recipe</button>
+    <button class="button is-primary" type="submit">Add Recipe</button>
 </form>
 {% endblock %}
