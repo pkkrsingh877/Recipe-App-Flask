@@ -1,0 +1,35 @@
+{% extends main %}
+
+{% block main %}
+
+<div class="user-profile">
+    <h2>User Profile</h2>
+    <div class="field">
+        <label class="label">First Name:</label>
+        <div class="control">
+            <p>{{ user.first_name }}</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Middle Name:</label>
+        <div class="control">
+            <p>{{ user.middle_name }}</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Last Name:</label>
+        <div class="control">
+            <p>{{ user.last_name }}</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Email:</label>
+        <div class="control">
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

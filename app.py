@@ -33,7 +33,7 @@ recipes = [
 
 @app.route("/")
 def index():
-    return render_template("layouts.html")
+    return render_template("home/index.html")
 
 @app.route("/recipes")
 def list_recipe():

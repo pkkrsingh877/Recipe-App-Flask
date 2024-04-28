@@ -1,7 +1,10 @@
 {% extends main %}
 
 {% block main %}
-<form class="box" action="/signup" method="post">
+
+<h2 class="title">Update Profile</h2>
+
+<form class="box" action="/update-profile" method="post">
     <div class="field">
         <label class="label">First Name</label>
         <div class="control">
@@ -23,20 +26,7 @@
         </div>
     </div>
 
-    <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-            <input class="input" type="email" name="email" placeholder="e.g. alex@example.com" required />
-        </div>
-    </div>
-
-    <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-            <input class="input" type="password" name="password" placeholder="********" required />
-        </div>
-    </div>
-
-    <button class="button is-primary" type="submit">Sign Up</button>
+    <button class="button is-primary" type="submit">Update Profile</button>
 </form>
+
 {% endblock %}

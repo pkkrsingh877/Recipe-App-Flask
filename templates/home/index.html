@@ -1,0 +1,31 @@
+{% extends "layouts.html" %}
+
+{% block main %}
+
+<div class="container">
+    <h1 class="title">Welcome to the Recipe App!</h1>
+    <p class="subtitle">Explore delicious recipes and create your own culinary masterpieces.</p>
+
+    <div class="columns">
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <p class="title">Browse Recipes</p>
+                    <p class="subtitle">Discover a variety of mouth-watering recipes.</p>
+                    <a href="/recipes" class="button is-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <p class="title">Create Recipe</p>
+                    <p class="subtitle">Craft your own unique culinary creations.</p>
+                    <a href="/recipes/add" class="button is-primary">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
