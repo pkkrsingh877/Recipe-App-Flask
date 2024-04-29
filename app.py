@@ -2,6 +2,9 @@ from flask import Flask, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
+from modules.validate_password import validate_password
+from modules.hash_password import hash_password
+
 load_dotenv()
 
 try:
@@ -22,6 +25,8 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return render_template("home/index.html")
+
+# Recipe routes
 
 @app.route("/recipes")
 def list_recipe():
@@ -81,6 +86,32 @@ def update_recipe():
         })
 
         return redirect("/")
+
+# User routes
+@app.route("/signup", methods=["GET","POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("user/signup.html")
+    else:
+        first_name = request.form.get("first_name")
+        middle_name = request.form.get("middle_name")
+        last_name = request.form.get("last_name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        if validate_password(password):
+            password = hash_password(password)
+            user = users.insert_one({
+                "first_name": first_name,
+                "middle_name": middle_name,
+                "last_name": last_name,
+                "email": email,
+                "password": password
+            })
+            return user
+        else:
+            return "<div>Password must have 1 uppercase, 1 lowercase, 1 digit, 1 special symbol</div>"
+
 
 if __name__ == "__main__":
     app.run()
