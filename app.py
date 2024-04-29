@@ -1,35 +1,23 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
+from dotenv import load_dotenv
+from pymongo import MongoClient
+
+load_dotenv()
+
+try:
+    # MongoClient Connection
+    client = MongoClient('localhost', 27017)
+    # Database Creation
+    db = client.recipedb
+    # Collection Creation
+    users = db.users
+    recipes = db.recipes
+
+    print("DB Connection Successful!")
+except:
+    print("DB Connection Failed!")
 
 app = Flask(__name__)
-
-app.debug=True
-
-recipes = [
-    {
-        "title": "Spaghetti Carbonara",
-        "description": "Classic Italian pasta dish with bacon, eggs, and cheese.",
-        "ingredients": ["Spaghetti", "Eggs", "Bacon", "Parmesan Cheese"],
-        "preparation_time": 20,
-        "cooking_time": 15,
-        "servings": 4
-    },
-    {
-        "title": "Chicken Alfredo",
-        "description": "Creamy pasta dish with chicken and Alfredo sauce.",
-        "ingredients": ["Fettuccine", "Chicken Breast", "Heavy Cream", "Parmesan Cheese"],
-        "preparation_time": 15,
-        "cooking_time": 20,
-        "servings": 4
-    },
-    {
-        "title": "Margherita Pizza",
-        "description": "Traditional Italian pizza topped with tomatoes, mozzarella, and basil.",
-        "ingredients": ["Pizza Dough", "Tomatoes", "Fresh Mozzarella", "Basil"],
-        "preparation_time": 10,
-        "cooking_time": 15,
-        "servings": 2
-    }
-]
 
 @app.route("/")
 def index():
@@ -37,8 +25,11 @@ def index():
 
 @app.route("/recipes")
 def list_recipe():
-    return render_template("recipes/list_recipe.html", recipes=recipes)
-
+    try:
+        recipes_data = recipes.find()
+        return render_template("recipes/list_recipe.html", recipes=recipes_data)
+    except:
+        return "<div>No Recipe Found</div>"
 @app.route("/recipes/add", methods=["GET","POST"])
 def create_recipe():
     if request.method == "GET":
@@ -49,14 +40,21 @@ def create_recipe():
         ingredients = request.form.get("ingredients")
         preparation_time = request.form.get("preparation_time")
         cooking_time = request.form.get("cooking_time")
+        total_time = int(preparation_time) + int(cooking_time)
         servings = request.form.get("servings")
 
-        # Print or process the received data as needed
-        print(f"Received data: {title}, {description}, {ingredients}, {preparation_time}, {cooking_time}, {servings}")
+        # Insert Data in the database
+        recipes.insert_one({
+            "title": title, 
+            "description": description,
+            "ingredients": ingredients, 
+            "preparation_time": preparation_time, 
+            "cooking_time": cooking_time, 
+            "total_time": total_time, 
+            "servings": servings
+        })
 
-        # Here you can add the received recipe data to your recipes list or database
-
-        return "<div>Data Successfully Entered</div>"
+        return redirect("/")
 
 @app.route("/recipes/update", methods=["GET","PATCH"])
 def update_recipe():
@@ -68,14 +66,21 @@ def update_recipe():
         ingredients = request.form.get("ingredients")
         preparation_time = request.form.get("preparation_time")
         cooking_time = request.form.get("cooking_time")
+        total_time = int(preparation_time) + int(cooking_time)
         servings = request.form.get("servings")
 
-        # Print or process the received data as needed
-        print(f"Received Updated data: {title}, {description}, {ingredients}, {preparation_time}, {cooking_time}, {servings}")
+        # Update Data in the database
+        recipes.update_one({
+            "title": title, 
+            "description": description,
+            "ingredients": ingredients, 
+            "preparation_time": preparation_time, 
+            "cooking_time": cooking_time, 
+            "total_time": total_time, 
+            "servings": servings
+        })
 
-        # Here you can add the received recipe data to your recipes list or database
-
-        return "<div>Data Successfully Updated</div>"
+        return redirect("/")
 
 if __name__ == "__main__":
     app.run()
