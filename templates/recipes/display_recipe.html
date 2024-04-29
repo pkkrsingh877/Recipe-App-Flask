@@ -2,16 +2,30 @@
 
 {% block main %}
 
-{{ set total_time = recipe.preparation_time + recipe.cooking_time"}}
+{% set total_time = recipe.preparation_time + recipe.cooking_time %}
 
-<h2>{{ recipe.title }}</h2>
-<section class="card">
-    <div class="card-description">{{ recipe.description }}</div>
-    <div class="card-ingredients">{{recipe.ingredients }}</div>
-    <div class="card-preparation-time">{{ recipe.preparation_time }}</div>
-    <div class="card-cooking-time">{{ recipe.cooking_time }}</div>
-    <div class="card-total-time">{{ total_time }}</div>
-    <div class="card-servings">{{ recipe.servings }}</div>
-</section>
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">{{ recipe.title }}</p>
+                            <p class="subtitle is-6">{{ recipe.description }}</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p><strong>Ingredients:</strong>{{ recipe.ingredients }}</p>
+                        <p><strong>Preparation Time:</strong> {{ recipe.preparation_time }} minutes</p>
+                        <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+                        <p><strong>Total Time:</strong> {{ total_time }} minutes</p>
+                        <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
