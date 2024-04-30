@@ -108,10 +108,31 @@ def signup():
                 "email": email,
                 "password": password
             })
-            return user
+            print(user)
+            return render_template("user/login.html")
         else:
             return "<div>Password must have 1 uppercase, 1 lowercase, 1 digit, 1 special symbol</div>"
 
+@app.route("/login", methods=["GET","POST"])
+def login():
+    if request.method == "GET":
+        return render_template('user/login.html')
+    else:
+        email = request.form.get('email')
+        password = request.form.get('password')
+        print(email,password)
+        password = hash_password(password)
+        print(password)
+        
+        user = users.find_one({email: email})
+
+        # print(password, user.password)
+        if user and user['password'] == password:
+            print("User Logged In")
+            return redirect("/")
+        else:
+            print("Invalid Email/Password")
+            return redirect("/signup")
 
 if __name__ == "__main__":
     app.run()

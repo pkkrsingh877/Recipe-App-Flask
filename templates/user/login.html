@@ -2,18 +2,18 @@
 
 {% block main %}
 
-<form class="box">
+<form class="box" method="post" action="/login">
     <div class="field">
-        <label class="label">Email</label>
+        <label class="label" for="email">Email</label>
         <div class="control">
-            <input class="input" type="email" placeholder="e.g. alex@example.com" />
+            <input class="input" type="email" placeholder="e.g. alex@example.com" name="email" id="email" />
         </div>
     </div>
 
     <div class="field">
-        <label class="label">Password</label>
+        <label class="label" for="password">Password</label>
         <div class="control">
-            <input class="input" type="password" placeholder="********" />
+            <input class="input" type="password" placeholder="********" name="password" id="password" />
         </div>
     </div>
 
